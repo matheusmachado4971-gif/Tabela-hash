@@ -278,6 +278,65 @@ int main() {
         printf("\n5 - Exibir estatisticas");
         printf("\n0 - Sair");
         printf("\n\nEscolha: ");
+        
+        scanf("%d", &opcao);
+        getchar();
+
+        switch (opcao) {
+
+            case 1:
+
+                printf("\nDigite a palavra: ");
+                fgets(palavra, sizeof(palavra), stdin);
+                palavra[strcspn(palavra, "\n")] = '\0';
+
+                printf("Digite a definicao: ");
+                fgets(definicao, sizeof(definicao), stdin);
+                definicao[strcspn(definicao, "\n")] = '\0';
+
+                inserir(&dicionario, palavra, definicao);
+                break;
+
+            case 2:
+
+                printf("\nDigite a palavra para buscar: ");
+                fgets(palavra, sizeof(palavra), stdin);
+                palavra[strcspn(palavra, "\n")] = '\0';
+
+                buscar(&dicionario, palavra);
+                break;
+
+            case 3:
+
+                printf("\nDigite a palavra para remover: ");
+                fgets(palavra, sizeof(palavra), stdin);
+                palavra[strcspn(palavra, "\n")] = '\0';
+
+                removerPalavra(&dicionario, palavra);
+                break;
+
+            case 4:
+                exibirTabela(&dicionario);
+                break;
+
+            case 5:
+                exibirEstatisticas(&dicionario);
+                break;
+
+            case 0:
+                printf("\nEncerrando programa...\n");
+                break;
+
+            default:
+                printf("\nOpcao invalida!\n");
+        }
+
+    } while (opcao != 0);
+
+    liberarMemoria(&dicionario);
+
+    return 0;
+}
 
 
 

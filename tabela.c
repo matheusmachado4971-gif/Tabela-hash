@@ -100,3 +100,13 @@ void buscar(Hash *h, char *palavra) {
             return;
         }
 
+        
+
+        aux = aux->prox;
+    }
+
+    printf("\nPalavra nao encontrada!\n");
+}
+
+
+

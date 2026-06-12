@@ -142,3 +142,4 @@ void removerPalavra(Hash *h, char *palavra) {
 
 
 
+

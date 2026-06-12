@@ -100,13 +100,45 @@ void buscar(Hash *h, char *palavra) {
             return;
         }
 
-        
-
         aux = aux->prox;
     }
 
     printf("\nPalavra nao encontrada!\n");
 }
+
+void removerPalavra(Hash *h, char *palavra) {
+
+    int indice = funcaoHash(palavra);
+
+    No *atual = h->tabela[indice];
+    No *anterior = NULL;
+
+    while (atual != NULL) {
+
+        if (strcmp(atual->palavra, palavra) == 0) {
+
+            if (anterior == NULL) {
+                h->tabela[indice] = atual->prox;
+            } else {
+                anterior->prox = atual->prox;
+            }
+
+            free(atual);
+
+            h->elementos--;
+
+            printf("\nPalavra removida com sucesso!\n");
+
+            return;
+        }
+
+        anterior = atual;
+        atual = atual->prox;
+    }
+
+    printf("\nPalavra nao encontrada!\n");
+}
+
 
 
 

@@ -139,6 +139,145 @@ void removerPalavra(Hash *h, char *palavra) {
     printf("\nPalavra nao encontrada!\n");
 }
 
+}
+
+void removerPalavra(Hash *h, char *palavra) {
+
+    int indice = funcaoHash(palavra);
+
+    No *atual = h->tabela[indice];
+    No *anterior = NULL;
+
+    while (atual != NULL) {
+
+        if (strcmp(atual->palavra, palavra) == 0) {
+
+            if (anterior == NULL) {
+                h->tabela[indice] = atual->prox;
+            } else {
+                anterior->prox = atual->prox;
+            }
+
+            free(atual);
+
+            h->elementos--;
+
+            printf("\nPalavra removida com sucesso!\n");
+
+            return;
+        }
+
+        anterior = atual;
+        atual = atual->prox;
+    }
+
+    printf("\nPalavra nao encontrada!\n");
+}
+
+void exibirTabela(Hash *h) {
+
+    printf("\n=========== TABELA HASH ===========\n");
+
+    for (int i = 0; i < TAMANHO; i++) {
+
+        printf("[%d] -> ", i);
+
+        No *aux = h->tabela[i];
+
+        while (aux != NULL) {
+            printf("(%s) -> ", aux->palavra);
+            aux = aux->prox;
+        }
+
+        printf("NULL\n");
+    }
+}
+
+int maiorLista(Hash *h) {
+
+    int maior = 0;
+
+    for (int i = 0; i < TAMANHO; i++) {
+
+        int contador = 0;
+
+        No *aux = h->tabela[i];
+
+        while (aux != NULL) {
+            contador++;
+            aux = aux->prox;
+        }
+
+        if (contador > maior) {
+            maior = contador;
+        }
+    }
+
+    return maior;
+}
+
+void exibirEstatisticas(Hash *h) {
+
+    float fatorCarga =
+        (float) h->elementos / TAMANHO;
+
+    printf("\n=========== ESTATISTICAS ===========\n");
+
+    printf("Quantidade de elementos : %d\n",
+           h->elementos);
+
+    printf("Quantidade de colisoes : %d\n",
+           h->colisoes);
+
+    printf("Fator de carga         : %.2f\n",
+           fatorCarga);
+
+    printf("Maior lista encadeada  : %d\n",
+           maiorLista(h));
+}
+
+void liberarMemoria(Hash *h) {
+
+    for (int i = 0; i < TAMANHO; i++) {
+
+        No *aux = h->tabela[i];
+
+        while (aux != NULL) {
+
+            No *temp = aux;
+
+            aux = aux->prox;
+
+            free(temp);
+        }
+
+        h->tabela[i] = NULL;
+    }
+}
+
+int main() {
+
+    Hash dicionario;
+
+    inicializar(&dicionario);
+
+    int opcao;
+
+    char palavra[50];
+    char definicao[200];
+
+    do {
+
+        printf("\n====================================");
+        printf("\n DICIONARIO UTILIZANDO TABELA HASH");
+        printf("\n====================================");
+        printf("\n1 - Inserir palavra");
+        printf("\n2 - Buscar palavra");
+        printf("\n3 - Remover palavra");
+        printf("\n4 - Exibir tabela hash");
+        printf("\n5 - Exibir estatisticas");
+        printf("\n0 - Sair");
+        printf("\n\nEscolha: ");
 
 
 
